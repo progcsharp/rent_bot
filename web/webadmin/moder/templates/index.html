@@ -1,0 +1,133 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+ {% load static %}
+
+        <main>
+
+            <div class="container">
+                <div class="main__inner">
+
+                    <aside class="menu">
+                        <nav>
+                            <ul>
+                                <li><a href="{%url 'base_index'%}">Пользователи</a></li>
+                                <li><a href="{%url 'info'%}">Новости</a></li>
+                                <li><a href="{%url 'settings'%}">Основные настройки</a></li>
+                            </ul>
+                        </nav>
+                    </aside>
+
+                    <div class="sections">
+
+                        <section class="users">
+                            <div class="users__inner">
+                                <h2>Пользователи</h2>
+                                {% if error %}
+                                    <p class="error__message"><strong>Ошибка: </strong>{{error}}</p>
+                                {%endif%}
+                                <div class="users__row">
+
+                                    <form method="post" action="{% url 'index' 'search' %}" class="search">
+                                        {{search.name}}
+                                        <button>Поиск</button>
+                                    </form>
+
+                                    <button id="addUser" >Добавить</button>
+
+                                </div>
+
+                                <div class="users__table-headers">
+                                    <span>ФИО</span>
+                                    <span>Телефон</span>
+                                    <span>Скидки</span>
+                                    <span>Бонусы</span>
+                                </div>
+
+                                <div class="users__list">
+                                    {% for user in users %}
+                                    <div class="users__list-item">
+                                        <span class="user_name">{{user.name}}</span>
+                                        <span class="user_phone">{{user.phone}}</span>
+                                        <span class="user_stock">{{user.discount}}</span>
+                                        <span class="user_bonuses">{{user.bonus}}</span>
+                                        <span class="user_card user_info-hidden">{{user.cart}}</span>
+                                        <span class="user_value user_info-hidden">{{user.traffic}}</span>
+                                        <span class="user_pass user_info-hidden">{{user.password}}</span>
+                                        <span class="user_id user_info-hidden">{{user.id}}</span>
+                                    </div>
+
+                                    {% endfor %}
+                                </div>
+
+
+                            </div>
+                        </section>
+
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+
+        <div class="overlay"></div>
+        <div class="popup edit__popup">
+            <svg class="popup__close" width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M24.0631 11.7336C24.5845 11.7336 25.0084 11.3183 25.0084 10.8075V7.66029C25.0084 2.93034 21.9949 0 17.197 0H7.81888C2.991 0 0 2.93034 0 7.66396V16.8519C0 21.5708 2.991 24.5012 7.81888 24.5012H17.2008C22.0174 24.5012 25.0084 21.5708 25.0046 16.8482C25.0046 16.3312 24.5758 15.911 24.0481 15.911C23.5191 15.911 23.0915 16.3312 23.0915 16.8482C23.0915 20.565 21.0021 22.6231 17.197 22.6231H7.81888C4.01385 22.6231 1.91314 20.565 1.91314 16.8482V7.66029C1.91314 3.93244 4.01385 1.87434 7.82263 1.87434H17.2008C21.0071 1.87434 23.0953 3.92018 23.0953 7.66029V10.7744V10.7768C23.0965 11.2938 23.5241 11.7116 24.0518 11.7116V11.7336H24.0631ZM9.772 13.6538L8.91672 14.4917C8.53534 14.847 8.51408 15.4362 8.8692 15.8172L8.89671 15.8368C9.26183 16.1946 9.84953 16.2044 10.2259 15.8589L11.0774 15.0246C11.4638 14.6718 11.4851 14.0789 11.125 13.6991C10.7636 13.3218 10.1584 13.2997 9.772 13.6538ZM16.4339 15.6847C16.0662 16.0437 15.4723 16.051 15.0959 15.6994L15.0484 15.6541L9.07138 9.79957C8.70626 9.4198 8.69876 8.82932 9.05513 8.4422C9.42025 8.07591 10.0179 8.06856 10.3918 8.42628C10.3956 8.42873 10.3981 8.43118 10.4018 8.43485L12.7339 10.7208L14.8558 8.64066C15.2372 8.28417 15.8387 8.28784 16.2163 8.64924C16.2838 8.71539 16.3413 8.79012 16.3851 8.87342C16.6014 9.24216 16.5389 9.70524 16.2325 10.0066L14.1193 12.0757L16.4176 14.3286C16.8052 14.6875 16.8202 15.2866 16.4526 15.6651C16.4498 15.6693 16.4461 15.6727 16.4423 15.6762C16.4395 15.6789 16.4365 15.6816 16.4339 15.6847Z" fill="black"/>
+            </svg>
+            <h3>Изменить данные</h3>
+            <form action="{% url 'index' 'edit' %}" method="post" id="editUser">
+                {{form.id}}
+                <span>ФИО</span>
+                {{form.name}}
+                <span>Телефон</span>
+               {{form.phone}}
+                <span>Пароль</span>
+               {{form.password}}
+                <span>Номер карты</span>
+               {{form.cart}}
+                <span>Объем перевозок</span>
+                {{form.traffic}}
+                <span>Скидки</span>
+                {{form.discount}}
+                <span>Бонусы</span>
+                {{form.bonus}}
+                <button type="submit">Изменить</button>
+            </form>
+        </div>
+
+
+        <div class="popup add__popup">
+            <svg class="popup__close" width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M24.0631 11.7336C24.5845 11.7336 25.0084 11.3183 25.0084 10.8075V7.66029C25.0084 2.93034 21.9949 0 17.197 0H7.81888C2.991 0 0 2.93034 0 7.66396V16.8519C0 21.5708 2.991 24.5012 7.81888 24.5012H17.2008C22.0174 24.5012 25.0084 21.5708 25.0046 16.8482C25.0046 16.3312 24.5758 15.911 24.0481 15.911C23.5191 15.911 23.0915 16.3312 23.0915 16.8482C23.0915 20.565 21.0021 22.6231 17.197 22.6231H7.81888C4.01385 22.6231 1.91314 20.565 1.91314 16.8482V7.66029C1.91314 3.93244 4.01385 1.87434 7.82263 1.87434H17.2008C21.0071 1.87434 23.0953 3.92018 23.0953 7.66029V10.7744V10.7768C23.0965 11.2938 23.5241 11.7116 24.0518 11.7116V11.7336H24.0631ZM9.772 13.6538L8.91672 14.4917C8.53534 14.847 8.51408 15.4362 8.8692 15.8172L8.89671 15.8368C9.26183 16.1946 9.84953 16.2044 10.2259 15.8589L11.0774 15.0246C11.4638 14.6718 11.4851 14.0789 11.125 13.6991C10.7636 13.3218 10.1584 13.2997 9.772 13.6538ZM16.4339 15.6847C16.0662 16.0437 15.4723 16.051 15.0959 15.6994L15.0484 15.6541L9.07138 9.79957C8.70626 9.4198 8.69876 8.82932 9.05513 8.4422C9.42025 8.07591 10.0179 8.06856 10.3918 8.42628C10.3956 8.42873 10.3981 8.43118 10.4018 8.43485L12.7339 10.7208L14.8558 8.64066C15.2372 8.28417 15.8387 8.28784 16.2163 8.64924C16.2838 8.71539 16.3413 8.79012 16.3851 8.87342C16.6014 9.24216 16.5389 9.70524 16.2325 10.0066L14.1193 12.0757L16.4176 14.3286C16.8052 14.6875 16.8202 15.2866 16.4526 15.6651C16.4498 15.6693 16.4461 15.6727 16.4423 15.6762C16.4395 15.6789 16.4365 15.6816 16.4339 15.6847Z" fill="black"/>
+            </svg>
+            <h3>Добавить пользователя</h3>
+            <form action="{% url 'index' 'save' %}" method="post" id="addUser">
+                <span>ФИО</span>
+                {{add_form.name}}
+                <span>Телефон</span>
+                {{add_form.phone}}
+                <span>Пароль</span>
+                <div class="form__row">
+                    {{add_form.password}}
+                    <div class="dice" id="dice">
+                        <img class="dice__img" src="{% static 'img/dice.svg' %}" alt="">
+                    </div>
+                </div>
+
+
+                <span>Номер карты</span>
+                {{add_form.cart}}
+                <span>Объем перевозок</span>
+                {{add_form.traffic}}
+                <span>Скидки</span>
+                {{add_form.discount}}
+                <span>Бонусы</span>
+                {{add_form.bonus}}
+                <button type="submit">Добавить</button>
+            </form>
+        </div>
+{% endblock %}
+

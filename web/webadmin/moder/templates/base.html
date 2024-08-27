@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIS Logistic | Административная панель</title>
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+        <header class="header">
+            <div class="container">
+                <div class="header__inner">
+                    <a href="index.html">
+                        <img src="{% static 'img/logo.png' %}" alt="" class="logo">
+                    </a>
+                    <p>Административная панель</p>
+                </div>
+            </div>
+        </header>
+ {% block content %}
+      <!-- default content text (typically empty) -->
+    {% endblock %}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

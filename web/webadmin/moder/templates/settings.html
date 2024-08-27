@@ -1,0 +1,68 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+ {% load static %}
+
+<main>
+        <div class="container">
+            <div class="main__inner">
+
+                <aside class="menu">
+                    <nav>
+                        <ul>
+                           <li><a href="{%url 'base_index'%}">Пользователи</a></li>
+                                <li><a href="{%url 'info'%}">Новости</a></li>
+                                <li><a href="{%url 'settings'%}">Основные настройки</a></li>
+                        </ul>
+                    </nav>
+                </aside>
+
+                <div class="sections">
+
+                    <section class="users">
+                        <div class="users__inner">
+                            <h2>Основные настройки</h2>
+
+                            <form method="post" name="moder" class="setting__form">
+                                <h3>ID администратора</h3>
+                                <input type="text" name="moder" placeholder="Введите ID администратора..." value="{{moder}}">
+                                <button>Изменить</button>
+                            </form>
+
+                            <hr>
+
+                            <form method="post" class="setting__form">
+                                <h3>Сообщение после регистрации</h3>
+                                <textarea name="message_reg" id="" cols="30" rows="5" placeholder="Введите сообщение...">{{message_reg.message}}</textarea>
+                                <button>Изменить</button>
+                            </form>
+
+                            <hr>
+
+                            <form method="post" class="setting__form">
+                                <h3>Сообщение о выводе бонусов</h3>
+                                <textarea name="message_bonus" id="" cols="30" rows="5" placeholder="Введите сообщение...">{{message_bonus.message}}</textarea>
+                                <button>Изменить</button>
+                            </form>
+
+                            <hr>
+
+                            <form method="post" class="setting__form">
+                                <h3>Информация по работе с ботом</h3>
+                                <textarea name="message_info" id="" cols="30" rows="5" placeholder="Введите сообщение...">{{message_info.message}}</textarea>
+                                <button>Изменить</button>
+                            </form>
+
+                            <hr>
+
+                        </div>
+                    </section>
+
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

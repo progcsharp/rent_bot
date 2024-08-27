@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+ {% load static %}
+
+<main>
+        <div class="container">
+            <div class="main__inner">
+
+                <aside class="menu">
+                    <nav>
+                        <ul>
+                            <li><a href="{%url 'base_index'%}">Пользователи</a></li>
+                                <li><a href="{%url 'info'%}">Новости</a></li>
+                                <li><a href="{%url 'settings'%}">Основные настройки</a></li>
+                        </ul>
+                    </nav>
+                </aside>
+
+                <div class="sections">
+
+                    <section class="users">
+                        <div class="users__inner">
+                            <h2>Новости</h2>
+                            <!-- <p class="error__message"><strong>Ошибка: </strong>Пароль должен быть уникальным!</p> -->
+
+                            <form method="post" id="editNew" class="news__form">
+                                <h3>Заголовок</h3>
+                                <input type="text" name="title" placeholder="Заголовок..." value="{{info.title}}">
+                                <h3>Текст новости</h3>
+                                <textarea name="article" id="" cols="30" rows="10" placeholder="Текст новости...">{{info.article}}</textarea>
+                                <button>Сохранить</button>
+                            </form>
+
+                        </div>
+                    </section>
+
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+{% endblock %}
